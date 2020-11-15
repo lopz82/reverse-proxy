@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  backend01:
+    image: nginx
+  backend02:
+    image: nginx
+  backend03:
+    image: nginx
+  reverse-proxy:
+    build:
+      context: .
+    command: --upservers http://backend01:80,http://backend02:80,http://backend03:80 --type roundrobin
+    ports:
+    - 9090:9090

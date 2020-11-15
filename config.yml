@@ -1,0 +1,6 @@
+routes:
+  standard:
+    strategy: roundrobin
+    servers:
+      - http://fakedomainblablablablabla.com:80
+      - http://fakedomainblablablablabla2.com:80
