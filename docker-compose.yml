@@ -13,3 +13,5 @@ services:
     command: --upservers http://backend01:80,http://backend02:80,http://backend03:80 --type roundrobin
     ports:
     - 9090:9090
+    volumes:
+    - "./config:/app/config"
