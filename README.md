@@ -38,7 +38,7 @@ The repository includes a working example which includes a basic `config.yml`.
 
 ```sh
 $ git clone https://github.com/lopz82/reverse-proxy.git
-$ cd revere-proxy
+$ cd reverse-proxy
 $ docker-compose up 
 ```
 
