@@ -1,6 +1,17 @@
+config:
+  proxy address: "0.0.0.0:9090"
+
 routes:
-  standard:
+  /redirect:
     strategy: roundrobin
+    root: true
     servers:
-      - http://fakedomainblablablablabla.com:80
-      - http://fakedomainblablablablabla2.com:80
+      - http://backend01:80
+      - http://backend02:80
+  /nginx:
+    strategy: random
+    root: false
+    servers:
+      - http://backend01:80
+      - http://backend02:80
+      - http://backend03:80
