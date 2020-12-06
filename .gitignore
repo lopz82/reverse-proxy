@@ -1,7 +1,5 @@
 .idea
 
-go.mod
-go.sum
 *.iml
 
 *.out
