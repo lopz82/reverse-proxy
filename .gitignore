@@ -5,3 +5,5 @@ go.sum
 *.iml
 
 *.out
+
+go_build_*
