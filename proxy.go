@@ -9,12 +9,17 @@ import (
 	"net/url"
 )
 
-func ReverseProxy(lb LoadBalancer) http.HandlerFunc {
+func ReverseProxy(lb LoadBalancer, root bool) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {
 		prepareRedirection(lb.next(), r)
 
 		transport := http.DefaultTransport
+
+		if root == true {
+			r.URL.Path = "/"
+		}
+
 		resp, err := transport.RoundTrip(r)
 		if err != nil {
 			msg := fmt.Sprintf("Server %s not available", r.URL.String())
@@ -39,6 +44,7 @@ func ReverseProxy(lb LoadBalancer) http.HandlerFunc {
 		}
 		defer resp.Body.Close()
 		bufio.NewReader(resp.Body).WriteTo(w)
+		log.Printf("%s \"%s %s %s\" %d", r.RemoteAddr, r.Method, r.RequestURI, r.Proto, resp.StatusCode)
 		return
 	}
 }

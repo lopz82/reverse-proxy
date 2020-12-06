@@ -11,12 +11,18 @@ import (
 )
 
 type ConfigFile struct {
-	Routes map[string]Route
+	ProxyConfig ProxyConfig `yaml:"config"`
+	Routes      map[string]Route
+}
+
+type ProxyConfig struct {
+	ProxyAddress string `yaml:"proxy address"`
 }
 
 type Route struct {
 	Servers  []string
 	Strategy string
+	Root     bool
 }
 
 var config = ConfigFile{}
@@ -28,6 +34,7 @@ func init() {
 	if err != nil {
 		log.Fatalf("Error unmarshalling %s", defaultPath)
 	}
+	log.Printf("Configuration file loaded successfully %s", defaultPath)
 }
 
 func getAppPath() string {
@@ -46,4 +53,3 @@ func openConfigFile(filename string) []byte {
 	}
 	return data
 }
-
